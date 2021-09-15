@@ -22,7 +22,7 @@ void orderPrintAll(const vector<Order>& vect) {
     {   
         for (int i = 0; i < vect.size(); i++) {
             getline(in, data, '*');
-            if (data.find("True") != string::npos)break;
+            if (data.find("True") != string::npos)cout << "";
             else {
                 cout << data << endl;
             }
