@@ -23,14 +23,11 @@ void orderAdd(vector<Order>& vect) {
     out.open("data.dat", ios::app);
     if (out.is_open())
     {
-        out << "id: " << neworder.id << "\n" <<
-            "discription: " << neworder.description << "\n" <<
-            "status: " << neworder.status << "\n";
-        if (neworder.delete_status == false) out << "delete_status: False" << "\n";
+        out << neworder.id << "\n" << neworder.description << "\n" << neworder.status << "\n";
+        if (neworder.delete_status == false) out << "False" << "\n";
         out << "*" << endl;
         out.close();
     }
-
 }
 
 void redact_Order(vector<Order>& vect) {
@@ -45,23 +42,27 @@ void redact_Order(vector<Order>& vect) {
     out.close();
     cout << "¬ведите описание заказа: ";
     cin >> description;
-    getline(cin, description, '.');
+    //getline(cin, description, '.');
     cout << "¬ведите статус заказа: ";
-    getline(cin, status, '.');
-    for (int i = 1; i <= vect.size(); i++) {
+    cin >> status;
+    //getline(cin, status, '.');
+    for (int i = 0; i < vect.size(); i++) {
         for (auto x : vect) {
             if (i == orderid) {
-                vect[orderid - 1].description = description;
-                vect[orderid - 1].status = status;
-                cout << "ok" << endl;
-                break;
+                if (vect[i].delete_status == false) {
+                    vect[orderid - 1].description = description;
+                    vect[orderid - 1].status = status;
+                    cout << "ok" << endl;
+                    break;
+                }
+                else cout << "Order was deleted";
             }
         }
         out.open("data.dat", ios::app);
         if (out.is_open())
         {
-            out << "id: " << vect[i - 1].id << "\n" << "discription: " << vect[i - 1].description << "\n" << "status: " << vect[i - 1].status << "\n";
-            if (vect[i - 1].delete_status == false) out << "delete_status: False" << "\n";
+            out << vect[i].id << "\n" << vect[i].description << "\n" << vect[i].status << "\n";
+            if (vect[i].delete_status == false) out << "False" << "\n";
             out << "*" << endl;
             out.close();
             cout << "Save...";
@@ -70,8 +71,6 @@ void redact_Order(vector<Order>& vect) {
         cout << "The order was not found. Please try again.\n";
         }
     }
-   
-    
     system("pause");
 }
 
@@ -84,9 +83,9 @@ void deletorder(vector<Order>& vect) {
     out.open("data.dat");
     out << "";
     out.close();
-    for (int i = 1; i <= vect.size(); i++) {
+    for (int i = 0; i < vect.size(); i++) {
         for (auto x : vect) {
-            if (i == orderid) {
+            if (i == orderid-1) {
                 vect[orderid - 1].delete_status = true;
                 cout << "ok" << endl;
                 break;
@@ -95,13 +94,11 @@ void deletorder(vector<Order>& vect) {
         out.open("data.dat", ios::app);
         if (out.is_open())
         {
-            out << "id: " << vect[i - 1].id << "\n" << "discription: " << vect[i - 1].description << "\n" << "status: " << vect[i - 1].status << "\n";
-            if (vect[i - 1].delete_status == false) out << "delete_status: False" << "\n";
-            else out << "delete_status: True" << "\n";
+            out << vect[i].id << "\n" << vect[i].description << "\n" <<  vect[i].status << "\n";
+            if (vect[i].delete_status == false) out << "False" << "\n";
+            else out << "True" << "\n";
             out << "*" << endl;
             out.close();
-
-
         }
         else {
             cout << "The order was not found. Please try again.\n";

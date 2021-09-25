@@ -8,25 +8,17 @@ using namespace std;
 
 struct Order;
 
-
-//void ShowOrderList(vector<Order>& x) {
-//    cout << "ID: " << x.id << endl;
-//    cout << "Описание: " << x.description << endl;
-//    cout << "Cтатус: " << x.status << endl;
-//    cout << endl;
-//    system("pause");
-//}
-
 void orderAdd(vector<Order>& vect);
 
-void orderPrintAll(const vector<Order>& vect);
+void orderPrintAll(vector<Order>& vect);
 
-void orderFind(const vector<Order>& vect);
+void orderFind(vector<Order>& vect);
 
 void redact_Order(vector<Order>& vect);
 
 void deletorder(vector<Order>& vect);
 
+void load_order(vector<Order>& vect);
 
 int main() {
     system("chcp 1251"); // for Clion use "chcp 65001"
@@ -70,7 +62,8 @@ int main() {
             break;
         }
         case 6: {
-            cout << "Еще не допилили"<< endl;
+            load_order(orders);
+            break;
         }
 
         case 7: {
@@ -80,7 +73,7 @@ int main() {
 
         default: {
             cout << "Месье, вы дэбил, давайте по-новой." << endl;
-            system("pause");
+            return 0;
         }
         };
     }
